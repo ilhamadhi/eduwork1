@@ -1,16 +1,15 @@
 /// <reference types="cypress"/>
 
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps'
-Given('I open login page', () => {
-    cy.visit('http://zero.webappsecurity.com/login.html')
+
+Given('I open the Zero Webappsecurity website', () => {
+    cy.visit('http://zero.webappsecurity.com/index.html')
 })
 
-When('I submit login', () => {
-    cy.get('#user_login').type('username')
-    cy.get('#user_password').type('password')
-    cy.contains('Sign in').click()
+When('I typed the word "Transfer Funds" on the searchbar and pressed Enter', () => {
+    cy.get('#searchTerm').type('Transfer Funds{enter}')
 })
 
-Then('I should see homepage', () => {
-    cy.get('#account_summary_tab').should('be.visible')
+Then('I should get the search result about "Transfer Funds" in the Zero Webappsecurity', () => {
+    cy.url().should('include', '/search.html?searchTerm=Transfer+Funds')
 })
