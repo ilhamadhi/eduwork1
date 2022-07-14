@@ -24,26 +24,14 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('login', (username, password) => {
-
-    cy.clearCookies()
-    cy.clearLocalStorage()
-    
-    cy.get('#user_login').type(username)
-    cy.get('#user_password').type(password)
-            
-    cy.contains('Sign in').click()
-})
-
-Cypress.Commands.add('paybills', () => {
-
-    cy.contains('Pay Bills').click()
-
-    cy.contains('Amount').type('1000')
-    cy.contains('Date').type('2022-05-30')
-    cy.contains('Description').type('Payday')
-
-    cy.contains('Pay').click()
-
-})
-
+Cypress.Commands.add('loginViaAPI', (
+    email = ('admin'),
+    password = ('admin')
+  ) => {
+    cy.visit('https://the-internet.herokuapp.com/basic_auth/', {
+        auth: {
+            username: email,
+            password, 
+        }
+    })
+});
